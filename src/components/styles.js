@@ -1,14 +1,35 @@
 import styled from 'styled-components';
-import { darkCharcoal, darkRaspberry, eggshell, nutmeg, roseWhite, wengeBrown, white } from './colors';
+import { darkCharcoal, darkRaspberry, eggshell, lightGray, nutmeg, roseWhite, wengeBrown, white } from './colors';
 import { createGlobalStyle } from "styled-components";
 
+const breakpoints = {
+  xs: "320px",
+  sm: "640px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1440px",
+  "2xl": "1536px",
+}
+
+export const devices = {
+  xs: `(min-width: ${breakpoints.xs})`,
+  sm: `(min-width: ${breakpoints.sm})`,
+  md: `(min-width: ${breakpoints.md})`,
+  lg: `(min-width: ${breakpoints.lg})`,
+  xl: `(min-width: ${breakpoints.xl})`,
+  "2xl": `(min-width: ${breakpoints["2xl"]})`,
+}
 
 export const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${eggshell};
     color: ${wengeBrown};
     font-family: 'Outfit', sans-serif;
-    padding: 6rem;
+    margin: 0;
+
+    @media only screen and ${devices.md} {
+      background-color: ${eggshell};
+      padding: 6rem;
+    }
   }
 
   h1,
@@ -28,14 +49,16 @@ export const GlobalStyle = createGlobalStyle`
   ul li,
   ol li {
     margin-bottom: 1rem;
+    padding-left: 1rem;
   }
 
-  ul li span {
+  ul li span,
+  ol li span {
     color: ${wengeBrown};
   }
 `
 
-export const StyledContainer = styled.section`
+export const StyledWrapper = styled.section`
   background-color: ${white};
   border-radius: 1.5rem;
   padding: 2.5rem;
@@ -78,19 +101,44 @@ export const StyledPrepTime = styled.section`
   }
 `;
 
-export const StyledUl = styled.ul`
+export const StyledUlListItem = styled.ul`
   li {
     color: ${nutmeg};
   }
 `;
 
-// max-width: 375px;
+export const StyledOl = styled.ol`
+  li {
+    color: ${nutmeg};
+    font-weight: 600;
+  }
 
-// @media (max-width: 1440px) {
-//   background: tomato;
+  li span:first-child {
+    color: ${wengeBrown};
+    font-weight: 600;
+  }
 
-//   /* nested rules work as expected */
-//   &:hover {
-//     background: yellow;
-//   }
-// }
+  li span:nth-child(2) {
+    font-weight: normal;
+  }
+`;
+
+export const StyledUl = styled.ul`
+  li {
+    list-style-type: none;
+    border-bottom: 0.05rem solid ${lightGray};
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+  }
+
+  li span:nth-child(2) {
+    color: ${nutmeg};
+    font-weight: 600;
+    padding-right: 4rem;
+
+    @media only screen and ${devices.sm} {
+      padding-right: 20rem;
+    }
+  }
+`;
